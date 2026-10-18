@@ -162,3 +162,31 @@ button,input,select {font:inherit;} button {cursor:pointer;} h1,h2,p {margin:0;}
 @media(max-width:1100px){.nav-rail {width:215px;padding-right:15px;padding-left:15px;}.topbar {padding:0 24px;}.page-heading {padding:25px 24px;}.inbox-workspace {margin:0 24px;}.conversation-list {width:280px;}.filter-tabs button {padding:0 7px;}.connection-badge {font-size:10px;}.brand {font-size:17px;}}
 @media(max-width:760px){.admin-layout {display:block;}.nav-rail {position:static;width:100%;height:auto;padding:16px;}.brand {font-size:16px;}.brand small {font-size:10px;}.brand-mark {width:35px;height:35px;}.workspace-label,.rail-bottom {display:none;}.nav-rail nav {display:flex;gap:6px;margin-top:18px;}.nav-item {height:36px;font-size:11px;justify-content:center;padding:0 8px;gap:6px;}.nav-item svg {width:15px;}.nav-count {display:none;}.topbar {height:49px;padding:0 16px;font-size:10px;}.topbar-status {font-size:9px;gap:4px;}.page-heading {padding:20px 16px;align-items:flex-start;}.eyebrow {font-size:9px;}h1 {font-size:25px;}.page-heading p {font-size:11px;}.connection-badge {white-space:normal;font-size:9px;padding:6px 8px;max-width:145px;margin-top:12px;}.inbox-workspace {margin:0 12px;height:650px;min-height:0;}.conversation-list {width:100%;}.chat-pane {display:none;}.has-selection .conversation-list {display:none;}.has-selection .chat-pane {display:flex;}.back-mobile {display:inline-flex;}.chat-header {padding:12px 8px;gap:8px;}.chat-header button {font-size:10px;padding:0 8px;}.chat-header small {max-width:150px;overflow-wrap:anywhere;}.app-footer {padding:16px;}.access-area {min-height:560px;padding:24px;}.settings-content,.requests-content {margin:0 16px;padding:20px;}.settings-line {font-size:11px;}.request-row {gap:8px;}.request-row select {max-width:95px;}}
 @media(prefers-reduced-motion:reduce){* {animation:none!important;transition:none!important;}}
+
+/* ===== Admin v2: stats, request cards, tags, notes ===== */
+.stats-row{display:flex;gap:12px;padding:0 24px 8px;flex-wrap:wrap}
+.stat-card{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;color:var(--muted-foreground)}
+.stat-card strong{display:block;font-size:1.15rem;color:var(--foreground);line-height:1.1}
+.stat-card span{font-size:.75rem}
+.request-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.request-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.request-card.status-new{border-inline-start:4px solid var(--primary)}
+.request-card.status-working{border-inline-start:4px solid #d97706}
+.request-card.status-done{border-inline-start:4px solid #16a34a;opacity:.75}
+.request-card header{display:flex;align-items:center;gap:8px}
+.request-card header strong{flex:1}
+.request-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:0}
+.request-field dt{font-size:.7rem;color:var(--muted-foreground)}
+.request-field dd{margin:0;font-size:.85rem;word-break:break-word}
+.request-card footer{color:var(--muted-foreground)}
+.tag-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 16px;border-bottom:1px solid var(--border);color:var(--muted-foreground)}
+.tag-chip{border-radius:999px;font-size:.72rem;height:26px;padding:0 10px}
+.notes-panel{border-top:1px solid var(--border);padding:10px 16px;max-height:180px;overflow-y:auto}
+.notes-panel h3{display:flex;align-items:center;gap:6px;font-size:.85rem;margin:0 0 8px}
+.notes-panel h3 small{color:var(--muted-foreground);font-weight:400}
+.notes-list{display:flex;flex-direction:column;gap:6px}
+.note-item{display:flex;align-items:center;gap:8px;background:var(--muted);border-radius:8px;padding:6px 10px}
+.note-item p{margin:0;flex:1;font-size:.82rem}
+.note-item small{color:var(--muted-foreground);white-space:nowrap}
+.note-form{display:flex;gap:8px;padding:8px 16px;border-top:1px solid var(--border)}
+@media(max-width:768px){.stats-row{padding:0 12px 6px}.request-list{grid-template-columns:1fr}.request-fields{grid-template-columns:1fr}}
