@@ -29,6 +29,13 @@
       "when": 1792364157930,
       "tag": "0003_owner_admin_by_verified_email",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792366167850,
+      "tag": "0004_conversation_notes_tags",
+      "breakpoints": true
     }
   ]
 }
