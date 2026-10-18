@@ -79,6 +79,35 @@ export type Database = {
           },
         ]
       }
+      conversation_notes: {
+        Row: {
+          conversation_id: string
+          created_at: string
+          id: string
+          note: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string
+          id?: string
+          note: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          note?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_notes_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           archived: boolean
@@ -88,6 +117,7 @@ export type Database = {
           id: string
           last_message: string
           platform: string
+          tags: string[]
           unread: number
           updated_at: string
         }
@@ -99,6 +129,7 @@ export type Database = {
           id?: string
           last_message?: string
           platform: string
+          tags?: string[]
           unread?: number
           updated_at?: string
         }
@@ -110,6 +141,7 @@ export type Database = {
           id?: string
           last_message?: string
           platform?: string
+          tags?: string[]
           unread?: number
           updated_at?: string
         }
