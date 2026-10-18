@@ -8,3 +8,9 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Share the Arabic administration shell across content routes; authorize all customer data through administrator-only RLS.
+- Identify conversations by platform and customer ID to prevent cross-channel collisions.
+- Keep n8n as the message delivery engine; verified public events feed Cloud storage and authenticated server functions send manual replies.
+- Grant the first administrator only through a one-use enrollment code; never allow self-assigned roles.
