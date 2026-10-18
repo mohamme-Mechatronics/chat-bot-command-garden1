@@ -1,0 +1,7 @@
+{
+  "name": "arsh-native",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "android:sync": "node ../node_modules/@capacitor/cli/bin/capacitor sync android" },
+  "dependencies": { "@capacitor/core": "^8.5.3", "@capacitor/android": "^8.5.3" }
+}
