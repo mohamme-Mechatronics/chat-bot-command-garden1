@@ -1,0 +1,1 @@
+ALTER TABLE public.bot_integration ADD COLUMN shared_key text NOT NULL DEFAULT '';

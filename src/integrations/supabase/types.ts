@@ -20,18 +20,21 @@ export type Database = {
           key_hash: string
           last_seen: string | null
           reply_url: string
+          shared_key: string
         }
         Insert: {
           id?: number
           key_hash: string
           last_seen?: string | null
           reply_url: string
+          shared_key?: string
         }
         Update: {
           id?: number
           key_hash?: string
           last_seen?: string | null
           reply_url?: string
+          shared_key?: string
         }
         Relationships: []
       }
