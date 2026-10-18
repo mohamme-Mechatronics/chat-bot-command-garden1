@@ -11,7 +11,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "native:build": "vite build --config native/vite.config.ts",
+    "native:windows": "node native/package-desktop.mjs",
+    "native:android": "bun run native:build && bunx --cwd native cap sync android"
   },
   "overrides": {
     "rolldown": "1.2.1"

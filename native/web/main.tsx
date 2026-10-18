@@ -10,6 +10,7 @@ import { Toaster } from '../../src/components/ui/sonner';
 import { validServiceUrl } from '../../src/lib/portable-contract';
 import { getServiceUrl } from './configuration';
 import '../../src/styles.css';
+import './local.css';
 
 const queryClient = new QueryClient();
 function Shell() {

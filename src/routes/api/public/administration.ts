@@ -35,7 +35,7 @@ export const Route = createFileRoute('/api/public/administration')({ server: { h
     if (!parsed.success) return Response.json({ error: 'بيانات الطلب غير صالحة' }, { status: 400, headers });
     try {
       const { performAdminOperation } = await import('@/lib/admin-operations.server');
-      const result = await performAdminOperation({ supabase: client, userId: user.user.id }, parsed.data.operation, parsed.data);
+      const result = await performAdminOperation({ supabase: client, userId: user.user.id }, parsed.data.operation, parsed.data.operation === 'info' ? {} : parsed.data);
       return Response.json(result, { headers });
     } catch (error) { return Response.json({ error: error instanceof Error ? error.message : 'تعذر إتمام العملية' }, { status: 502, headers }); }
   },
