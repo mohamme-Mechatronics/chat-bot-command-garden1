@@ -1,0 +1,5 @@
+.portable-settings { position: fixed; bottom: 12px; left: 12px; z-index: 50; }
+.portable-overlay { position: fixed; inset: 0; background: var(--background); z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
+.portable-overlay .auth-panel { width: min(100%, 440px); }
+.portable-overlay label { display: block; margin: 16px 0; }
+.portable-overlay summary { cursor: pointer; margin-top: 16px; }

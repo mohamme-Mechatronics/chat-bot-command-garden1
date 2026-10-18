@@ -1,0 +1,11 @@
+import { mkdir, cp, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { packager } from '@electron/packager';
+const staging = path.resolve(process.env.ARSH_DESKTOP_STAGING || '/tmp/arsh-desktop');
+const output = path.resolve(process.env.ARSH_DESKTOP_OUTPUT || '/tmp/arsh-desktop-release');
+await mkdir(staging, { recursive: true });
+await cp('electron', path.join(staging, 'electron'), { recursive: true });
+await cp('native/dist', path.join(staging, 'web'), { recursive: true });
+await writeFile(path.join(staging, 'package.json'), JSON.stringify({ name: 'arsh-admin', version: '1.0.0', main: 'electron/main.cjs' }));
+await packager({ dir: staging, name: 'ArshAdmin', platform: 'win32', arch: 'x64', electronVersion: '39.2.7', out: output, overwrite: true, asar: true });
+console.log('Windows package created in ' + output);

@@ -1,0 +1,1 @@
+export const lovable = { auth: { signInWithOAuth: async () => ({ error: new Error('استخدم البريد وكلمة المرور في التطبيق المحلي؛ الدخول الاجتماعي متاح في الموقع.') }) } };
