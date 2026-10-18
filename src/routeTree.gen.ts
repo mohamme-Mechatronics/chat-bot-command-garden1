@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RequestsRouteImport } from './routes/requests'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ApiPublicAdministrationRouteImport } from './routes/api/public/administration'
 import { Route as ApiPublicN8nRouteImport } from './routes/api/public/n8n'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAdministrationRoute = ApiPublicAdministrationRouteImport.update({
+  id: '/api/public/administration',
+  path: '/api/public/administration',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicN8nRoute = ApiPublicN8nRouteImport.update({
   id: '/api/public/n8n',
   path: '/api/public/n8n',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/requests': typeof RequestsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
+  '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/requests': typeof RequestsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
+  '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
 }
 export interface FileRoutesById {
@@ -61,20 +69,33 @@ export interface FileRoutesById {
   '/requests': typeof RequestsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
+  '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/requests' | '/reset-password' | '/settings' | '/api/public/n8n'
+    | '/'
+    | '/requests'
+    | '/reset-password'
+    | '/settings'
+    | '/api/public/administration'
+    | '/api/public/n8n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/requests' | '/reset-password' | '/settings' | '/api/public/n8n'
+  to:
+    | '/'
+    | '/requests'
+    | '/reset-password'
+    | '/settings'
+    | '/api/public/administration'
+    | '/api/public/n8n'
   id:
     | '__root__'
     | '/'
     | '/requests'
     | '/reset-password'
     | '/settings'
+    | '/api/public/administration'
     | '/api/public/n8n'
   fileRoutesById: FileRoutesById
 }
@@ -83,6 +104,7 @@ export interface RootRouteChildren {
   RequestsRoute: typeof RequestsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
+  ApiPublicAdministrationRoute: typeof ApiPublicAdministrationRoute
   ApiPublicN8nRoute: typeof ApiPublicN8nRoute
 }
 
@@ -116,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/administration': {
+      id: '/api/public/administration'
+      path: '/api/public/administration'
+      fullPath: '/api/public/administration'
+      preLoaderRoute: typeof ApiPublicAdministrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/n8n': {
       id: '/api/public/n8n'
       path: '/api/public/n8n'
@@ -131,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestsRoute: RequestsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
+  ApiPublicAdministrationRoute: ApiPublicAdministrationRoute,
   ApiPublicN8nRoute: ApiPublicN8nRoute,
 }
 export const routeTree = rootRouteImport
