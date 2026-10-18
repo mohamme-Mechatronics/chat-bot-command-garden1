@@ -1,6 +1,6 @@
 import { mkdir, cp, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import packager from '@electron/packager';
+import { packager } from '@electron/packager';
 const staging = path.resolve(process.env.ARSH_DESKTOP_STAGING || '/tmp/arsh-desktop');
 const output = path.resolve(process.env.ARSH_DESKTOP_OUTPUT || '/tmp/arsh-desktop-release');
 await mkdir(staging, { recursive: true });
