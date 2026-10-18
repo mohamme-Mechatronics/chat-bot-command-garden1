@@ -14,16 +14,172 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bot_integration: {
+        Row: {
+          id: number
+          key_hash: string
+          last_seen: string | null
+          reply_url: string
+        }
+        Insert: {
+          id?: number
+          key_hash: string
+          last_seen?: string | null
+          reply_url: string
+        }
+        Update: {
+          id?: number
+          key_hash?: string
+          last_seen?: string | null
+          reply_url?: string
+        }
+        Relationships: []
+      }
+      bot_requests: {
+        Row: {
+          conversation_id: string | null
+          created_at: string
+          details: Json
+          id: string
+          kind: string
+          status: string
+        }
+        Insert: {
+          conversation_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          kind?: string
+          status?: string
+        }
+        Update: {
+          conversation_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          kind?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bot_requests_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          archived: boolean
+          bot_paused: boolean
+          customer_id: string
+          customer_name: string
+          id: string
+          last_message: string
+          platform: string
+          unread: number
+          updated_at: string
+        }
+        Insert: {
+          archived?: boolean
+          bot_paused?: boolean
+          customer_id: string
+          customer_name?: string
+          id?: string
+          last_message?: string
+          platform: string
+          unread?: number
+          updated_at?: string
+        }
+        Update: {
+          archived?: boolean
+          bot_paused?: boolean
+          customer_id?: string
+          customer_name?: string
+          id?: string
+          last_message?: string
+          platform?: string
+          unread?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          conversation_id: string
+          created_at: string
+          direction: string
+          external_id: string | null
+          id: string
+          media_url: string | null
+          status: string
+          text: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string
+          direction: string
+          external_id?: string | null
+          id?: string
+          media_url?: string | null
+          status?: string
+          text?: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string
+          direction?: string
+          external_id?: string | null
+          id?: string
+          media_url?: string | null
+          status?: string
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +306,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
