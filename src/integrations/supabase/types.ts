@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       bot_integration: {
         Row: {
+          claim_hash: string | null
+          claimed_by: string | null
           id: number
           key_hash: string
           last_seen: string | null
@@ -23,6 +25,8 @@ export type Database = {
           shared_key: string
         }
         Insert: {
+          claim_hash?: string | null
+          claimed_by?: string | null
           id?: number
           key_hash: string
           last_seen?: string | null
@@ -30,6 +34,8 @@ export type Database = {
           shared_key?: string
         }
         Update: {
+          claim_hash?: string | null
+          claimed_by?: string | null
           id?: number
           key_hash?: string
           last_seen?: string | null
@@ -173,6 +179,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_admin: { Args: { code: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

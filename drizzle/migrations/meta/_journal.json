@@ -15,6 +15,13 @@
       "when": 1792361693737,
       "tag": "0001_integration_reply_secret",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792361707614,
+      "tag": "0002_owner_enrollment",
+      "breakpoints": true
     }
   ]
 }

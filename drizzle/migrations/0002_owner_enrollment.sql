@@ -1,0 +1,4 @@
+ALTER TABLE public.bot_integration ADD COLUMN claim_hash text, ADD COLUMN claimed_by uuid;
+CREATE FUNCTION public.claim_admin(code text) RETURNS boolean LANGUAGE plpgsql SECURITY DEFINER SET search_path=public AS $$ DECLARE claimed uuid; BEGIN IF auth.uid() IS NULL THEN RETURN false; END IF; UPDATE public.bot_integration SET claimed_by=auth.uid(),claim_hash=NULL WHERE id=1 AND claimed_by IS NULL AND claim_hash=encode(extensions.digest(code,'sha256'),'hex') RETURNING claimed_by INTO claimed; IF claimed IS NULL THEN RETURN false; END IF; INSERT INTO public.user_roles(user_id,role) VALUES(claimed,'admin'); RETURN true; END $$;
+REVOKE ALL ON FUNCTION public.claim_admin(text) FROM PUBLIC,anon;
+GRANT EXECUTE ON FUNCTION public.claim_admin(text) TO authenticated;
