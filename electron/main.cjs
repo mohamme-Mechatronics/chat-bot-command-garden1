@@ -7,11 +7,12 @@ app.whenReady().then(() => {
   const base = path.join(__dirname, '..', 'web');
   const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
   server = http.createServer((req, res) => {
+    if (req.headers.host !== '127.0.0.1:18765' || !['GET', 'HEAD'].includes(req.method)) { res.writeHead(403).end(); return; }
     const url = new URL(req.url || '/', 'http://localhost:18765');
     let file;
     try { file = path.resolve(base, '.' + decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname)); } catch { res.writeHead(400).end(); return; }
     if (!file.startsWith(base + path.sep)) { res.writeHead(403).end(); return; }
-    fs.readFile(file, (error, content) => { if (error) { res.writeHead(404).end(); return; } res.writeHead(200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' }); res.end(content); });
+    fs.readFile(file, (error, content) => { if (error) { res.writeHead(404).end(); return; } res.writeHead(200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https: wss:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'" }); res.end(content); });
   });
   server.on('error', () => { dialog.showErrorBox('عرش الهندسة', 'تعذر تشغيل التطبيق؛ أغلق النسخة المفتوحة وحاول مجددًا.'); app.quit(); });
   server.listen(18765, '127.0.0.1', () => {

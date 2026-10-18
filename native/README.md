@@ -14,7 +14,7 @@ bun run native:build
 
 ## الكمبيوتر
 حزمة Windows المرفقة تعمل بعد فك الضغط وفتح `ArshAdmin.exe`. لا يلزم فتح الموقع لتشغيل صفحاتها، ولكن الاتصال بالإنترنت مطلوب للبيانات.
-لإعادة إنتاجها استخدم `bun run native:windows`. لنسخة Linux استخدم نفس أمر التجهيز مع `--platform=linux` ولـMac مع `--platform=darwin`. الحزمة ليست مثبتًا وليست موقعة رقميًا.
+لإعادة إنتاجها استخدم `bun run native:windows`. الحزمة المرفقة لـWindows 64-bit فقط؛ ليست مثبتًا وليست موقعة رقميًا.
 
 ## أندرويد
 ثبّت Android Studio وJDK 21 أو أحدث ثم:
@@ -22,11 +22,11 @@ bun run native:build
 ```sh
 bun run native:build
 cd native
-bunx cap sync android
-bunx cap open android
+node ../node_modules/@capacitor/cli/bin/capacitor sync android
+node ../node_modules/@capacitor/cli/bin/capacitor open android
 ```
 
-من Android Studio اختر Build APK(s). نسخة التطوير ليست إصدار متجر، ويلزم مفتاح توقيع خاص بك لإصدار دائم. احتفظ بمفتاح التوقيع منفصلًا عن الأرشيف.
+من Android Studio اختر Build APK(s). ملف APK المرفق نسخة تطوير قابلة للتثبيت على أندرويد وليس آيفون أو إصدار متجر، ويلزم مفتاح توقيع خاص بك لإصدار دائم. احتفظ بمفتاح التوقيع منفصلًا عن الأرشيف. قد تحتاج إزالة النسخة التجريبية قبل تثبيت إصدار بتوقيع مختلف.
 النسخة تستخدم البريد وكلمة المرور؛ الدخول الاجتماعي واستعادة كلمة المرور يتمان من الموقع حتى تجهيز روابط العودة الأصلية للتطبيق.
 
 ## تغيير العنوان لاحقًا

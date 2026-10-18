@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '../../src/integrations/supabase/types';
-import { getCloudConfiguration } from './configuration';
+import { getCloudConfiguration, getServiceUrl } from './configuration';
 let client: ReturnType<typeof createClient<Database>> | undefined;
 export const supabase = new Proxy({} as ReturnType<typeof createClient<Database>>, {
   get(_, property) {
@@ -10,6 +10,14 @@ export const supabase = new Proxy({} as ReturnType<typeof createClient<Database>
       client = createClient<Database>(url, key, { auth: { persistSession: true, autoRefreshToken: true }, global: { fetch: (input, init) => { const headers = new Headers(init?.headers); if (headers.get('Authorization') === `Bearer ${key}` && key.startsWith('sb_')) headers.delete('Authorization'); headers.set('apikey', key); return fetch(input, { ...init, headers }); } } });
     }
     const value = Reflect.get(client, property);
+    if (property === 'auth') return new Proxy(client.auth, {
+      get(auth, authProperty) {
+        if (authProperty === 'resetPasswordForEmail') return (email: string) => auth.resetPasswordForEmail(email, { redirectTo: getServiceUrl() + '/reset-password' });
+        if (authProperty === 'signUp') return (input: { email: string; password: string }) => auth.signUp({ ...input, options: { emailRedirectTo: getServiceUrl() } });
+        const method = Reflect.get(auth, authProperty);
+        return typeof method === 'function' ? method.bind(auth) : method;
+      },
+    });
     return typeof value === 'function' ? value.bind(client) : value;
   },
 });
