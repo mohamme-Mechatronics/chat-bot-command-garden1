@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792361635351,
+      "tag": "0000_unified_bot_admin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792361693737,
+      "tag": "0001_integration_reply_secret",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792361707614,
+      "tag": "0002_owner_enrollment",
+      "breakpoints": true
+    }
+  ]
+}
