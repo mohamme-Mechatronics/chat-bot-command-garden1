@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "native:build": "vite build --config native/vite.config.ts",
-    "native:windows": "node native/package-desktop.mjs",
+    "native:windows": "bun run native:build && node native/package-desktop.mjs",
     "native:android": "bun run native:build && bun run --cwd native android:sync"
   },
   "overrides": {
