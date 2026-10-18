@@ -14,3 +14,5 @@
 - Identify conversations by platform and customer ID to prevent cross-channel collisions.
 - Keep n8n as the message delivery engine; verified public events feed Cloud storage and authenticated server functions send manual replies.
 - Grant the first administrator only through a one-use enrollment code; never allow self-assigned roles.
+- Keep native clients isolated under native/ and Electron under electron/; bundle the shared administration UI locally while delegating privileged operations to bearer-authenticated, administrator-checked HTTP handlers.
+- Share administrative operation implementations between Start server functions and the portable HTTP handler to prevent divergent authorization or reply behavior.
