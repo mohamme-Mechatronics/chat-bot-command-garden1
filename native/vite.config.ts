@@ -9,9 +9,12 @@ export default defineConfig({
   define: { __ARSH_VERSION__: JSON.stringify(version) },
   plugins: [{
     name: 'bundle-local-brand', enforce: 'pre',
+    resolveId(source) {
+      if (source === '@/assets/tamkeen_logo.png.asset.json') return '\0local-tamkeen-brand';
+    },
     async load(id) {
-      if (id !== path.resolve('src/assets/tamkeen_logo.png.asset.json')) return;
-      const pointer = JSON.parse(await readFile(id, 'utf8'));
+      if (id !== '\0local-tamkeen-brand') return;
+      const pointer = JSON.parse(await readFile(path.resolve('src/assets/tamkeen_logo.png.asset.json'), 'utf8'));
       const response = await fetch(new URL(pointer.url, 'https://chat-bot-command-garden1.lovable.app'));
       if (!response.ok) throw new Error('Unable to bundle brand artwork: ' + response.status);
       const reference = this.emitFile({ type: 'asset', name: 'tamkeen_logo.png', source: new Uint8Array(await response.arrayBuffer()) });
