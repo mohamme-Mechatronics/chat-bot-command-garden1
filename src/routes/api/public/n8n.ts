@@ -1,15 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { createHash, timingSafeEqual } from 'node:crypto';
 import { eventSchema } from '@/lib/bot-contract';
+import { verifyN8nSecret } from '@/lib/n8n-auth.server';
 
 export const Route = createFileRoute('/api/public/n8n')({
   server: { handlers: { POST: async ({ request }) => {
-    const key = request.headers.get('x-arsh-secret');
-    if (!key || key.length > 256) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
-    const { data: integration, error: configError } = await supabaseAdmin.from('bot_integration').select('key_hash').eq('id', 1).maybeSingle();
-    const hash = createHash('sha256').update(key).digest('hex');
-    if (configError || !integration || integration.key_hash.length !== hash.length || !timingSafeEqual(Buffer.from(hash), Buffer.from(integration.key_hash))) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    const supabaseAdmin = await verifyN8nSecret(request);
+    if (!supabaseAdmin) return Response.json({ error: 'Unauthorized' }, { status: 401 });
     let input;
     try { input = eventSchema.safeParse(await request.json()); } catch { return Response.json({ error: 'Invalid JSON' }, { status: 400 }); }
     if (!input.success) return Response.json({ error: 'Invalid event' }, { status: 400 });
