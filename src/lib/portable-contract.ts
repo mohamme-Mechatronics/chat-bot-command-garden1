@@ -7,8 +7,9 @@ export function validServiceUrl(value: string) {
 export function allowedAppOrigin(origin: string | null) {
   return origin === 'http://localhost:18765' || origin === 'http://127.0.0.1:18765' || origin === 'https://localhost' || origin === 'http://localhost' || origin === 'capacitor://localhost';
 }
+export const replySchema = z.object({ conversationId: z.string().uuid(), text: z.string().trim().max(4000).default(''), mediaPath: z.string().max(300).optional(), mediaType: z.string().max(100).optional(), fileName: z.string().max(200).optional() }).refine(v => v.text.length > 0 || !!v.mediaPath, 'اكتب ردًا أو أرفق ملفًا');
 export const portableOperationSchema = z.discriminatedUnion('operation', [
   z.object({ operation: z.literal('info') }),
   z.object({ operation: z.literal('save-url'), url: z.string().max(2000).refine(validReplyUrl) }),
-  z.object({ operation: z.literal('reply'), conversationId: z.string().uuid(), text: z.string().trim().min(1).max(4000) }),
+  replySchema.extend({ operation: z.literal('reply') }),
 ]);
