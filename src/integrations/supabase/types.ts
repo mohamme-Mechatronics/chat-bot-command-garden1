@@ -153,7 +153,9 @@ export type Database = {
           created_at: string
           direction: string
           external_id: string | null
+          file_name: string | null
           id: string
+          media_type: string | null
           media_url: string | null
           status: string
           text: string
@@ -163,7 +165,9 @@ export type Database = {
           created_at?: string
           direction: string
           external_id?: string | null
+          file_name?: string | null
           id?: string
+          media_type?: string | null
           media_url?: string | null
           status?: string
           text?: string
@@ -173,7 +177,9 @@ export type Database = {
           created_at?: string
           direction?: string
           external_id?: string | null
+          file_name?: string | null
           id?: string
+          media_type?: string | null
           media_url?: string | null
           status?: string
           text?: string
