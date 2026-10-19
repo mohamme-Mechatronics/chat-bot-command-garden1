@@ -17,3 +17,23 @@ describe('Shared bot rules', () => {
     expect(validReplyUrl('https://n8n.example.com/webhook-test/arsh-panel-reply')).toBe(false);
   });
 });
+import { mediaKind, validMediaPath } from '@/lib/bot-contract';
+import { replySchema } from '@/lib/portable-contract';
+describe('chat attachments', () => {
+  it('accepts only images and PDF', () => {
+    expect(mediaKind('image/png')).toBe('image');
+    expect(mediaKind('application/pdf')).toBe('document');
+    expect(mediaKind('application/zip')).toBeNull();
+  });
+  it('keeps attachments inside the conversation folder', () => {
+    const id = '11111111-1111-4111-8111-111111111111';
+    expect(validMediaPath(id, `${id}/a.pdf`)).toBe(true);
+    expect(validMediaPath(id, `other/a.pdf`)).toBe(false);
+    expect(validMediaPath(id, `${id}/../x.pdf`)).toBe(false);
+  });
+  it('allows an attachment without text but not an empty reply', () => {
+    const id = '11111111-1111-4111-8111-111111111111';
+    expect(replySchema.safeParse({ conversationId: id, text: '', mediaPath: `${id}/a.pdf` }).success).toBe(true);
+    expect(replySchema.safeParse({ conversationId: id, text: '' }).success).toBe(false);
+  });
+});

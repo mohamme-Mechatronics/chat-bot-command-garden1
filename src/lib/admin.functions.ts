@@ -2,6 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 import { requireSupabaseAuth } from '@/integrations/supabase/auth-middleware';
 import { validReplyUrl } from './bot-contract';
+import { replySchema } from './portable-contract';
 
 export const integrationInfo = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   const { performAdminOperation } = await import('./admin-operations.server');
@@ -15,7 +16,7 @@ export const saveReplyUrl = createServerFn({ method: 'POST' }).middleware([requi
   return performAdminOperation(context, 'save-url', data);
 });
 
-export const sendReply = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth]).inputValidator((data: { conversationId: string; text: string }) => z.object({ conversationId: z.string().uuid(), text: z.string().trim().min(1).max(4000) }).parse(data)).handler(async ({ data, context }) => {
+export const sendReply = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth]).inputValidator((data: { conversationId: string; text: string; mediaPath?: string; mediaType?: string; fileName?: string }) => replySchema.parse(data)).handler(async ({ data, context }) => {
   const { performAdminOperation } = await import('./admin-operations.server');
   return performAdminOperation(context, 'reply', data);
 });
