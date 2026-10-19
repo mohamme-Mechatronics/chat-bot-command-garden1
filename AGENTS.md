@@ -19,4 +19,4 @@
 - Android updates use manually requested, checksum-validated same-service ZIP bundles with Capacitor Updater; never redirect startup to the hosted UI, so installed screens remain local.
 - Prepare native update assets with the native build and package-update script before publishing UI changes; website publication alone does not regenerate installed bundles.
 
-- Reuse the supplied brand asset across web and locally bundled clients; native Vite embeds the CDN artwork in its build, and compact launcher/favicon artwork derives from the same asset so identities stay consistent offline without changing bot identifiers.
+- Reuse the supplied brand artwork across web and locally bundled clients; import the transparent edited logo directly so native builds include it offline, and derive compact launcher/favicon artwork from the same brand without changing bot identifiers.
