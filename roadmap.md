@@ -9,6 +9,7 @@
 - [x] Store conversations and requests with administrator-only access.
 - [x] Update n8n workflow for incoming messages, replies, and pause state on both channels.
 - [x] Validate public pages, webhook storage and workflow syntax; deliver JSON and activation instructions.
-- [ ] Verify actual customer/manual replies from installed apps — requires the owner's working n8n and devices; signed-in local reads verified.- [x] Send images/PDF from the admin chat and show attachments in messages; n8n v9.11 forwards them to WhatsApp/Telegram.
-- [ ] Show customer-sent photos/PDFs inside the admin — requires n8n to forward downloadable media links (WhatsApp media needs the bot's token).
+- [ ] Verify actual customer/manual replies from installed apps — requires the owner's working n8n and devices; signed-in local reads verified.
+- [x] Send images/PDF from the admin chat and show attachments in messages; n8n v9.11 forwards them to WhatsApp/Telegram.
+- [x] Show customer-sent photos/PDFs inside the admin via n8n v9.12 media upload endpoint.
 - [ ] Phone push notifications while the app is closed — requires a Firebase project (google-services.json) from the owner.
