@@ -11,4 +11,4 @@ async function call<T>(body: Record<string, unknown>): Promise<T> {
 }
 export const integrationInfo = () => call<{ reply_url: string; last_seen: string | null }>({ operation: 'info' });
 export const saveReplyUrl = ({ data }: { data: { url: string } }) => call<{ ok: true }>({ operation: 'save-url', ...data });
-export const sendReply = ({ data }: { data: { conversationId: string; text: string } }) => call<{ ok: true }>({ operation: 'reply', ...data });
+export const sendReply = ({ data }: { data: { conversationId: string; text: string; mediaPath?: string; mediaType?: string; fileName?: string } }) => call<{ ok: true }>({ operation: 'reply', ...data });
