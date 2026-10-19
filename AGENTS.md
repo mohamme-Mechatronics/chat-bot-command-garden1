@@ -18,3 +18,5 @@
 - Share administrative operation implementations between Start server functions and the portable HTTP handler to prevent divergent authorization or reply behavior.
 - Android updates use manually requested, checksum-validated same-service ZIP bundles with Capacitor Updater; never redirect startup to the hosted UI, so installed screens remain local.
 - Prepare native update assets with the native build and package-update script before publishing UI changes; website publication alone does not regenerate installed bundles.
+
+- Reuse the supplied brand asset across web and locally bundled clients; derive compact launcher/favicon artwork from that same asset so identities stay consistent without changing bot identifiers.

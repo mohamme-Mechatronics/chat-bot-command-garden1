@@ -7,5 +7,5 @@ await mkdir(staging, { recursive: true });
 await cp('electron', path.join(staging, 'electron'), { recursive: true });
 await cp('native/dist', path.join(staging, 'web'), { recursive: true });
 await writeFile(path.join(staging, 'package.json'), JSON.stringify({ name: 'arsh-admin', version: '1.0.0', main: 'electron/main.cjs' }));
-await packager({ dir: staging, name: 'ArshAdmin', platform: 'win32', arch: 'x64', electronVersion: '39.2.7', out: output, overwrite: true, asar: true });
+await packager({ dir: staging, name: 'Tamkeen', platform: 'win32', arch: 'x64', icon: 'native/resources/tamkeen.ico', electronVersion: '39.2.7', out: output, overwrite: true, asar: true });
 console.log('Windows package created in ' + output);

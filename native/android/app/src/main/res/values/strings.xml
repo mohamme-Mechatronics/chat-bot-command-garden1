@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">عرش الهندسة</string>
-    <string name="title_activity_main">عرش الهندسة</string>
+    <string name="app_name">تمكين</string>
+    <string name="title_activity_main">تمكين</string>
     <string name="package_name">com.arshalhandasa.admin</string>
     <string name="custom_url_scheme">com.arshalhandasa.admin</string>
 </resources>
