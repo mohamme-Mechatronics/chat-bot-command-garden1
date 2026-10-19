@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createRootRoute, createRoute, createRouter, RouterProvider, Outlet, createHashHistory } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,11 +9,13 @@ import { Input } from '../../src/components/ui/input';
 import { Toaster } from '../../src/components/ui/sonner';
 import { validServiceUrl } from '../../src/lib/portable-contract';
 import { getServiceUrl } from './configuration';
+import { AppUpdate, confirmLocalReady } from './app-update';
 import '../../src/styles.css';
 import './local.css';
 
 const queryClient = new QueryClient();
 function Shell() {
+  useEffect(() => { void confirmLocalReady().catch(() => undefined); }, []);
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState(getServiceUrl);
   const [cloudUrl, setCloudUrl] = useState('');
@@ -24,7 +26,7 @@ function Shell() {
     localStorage.setItem('arsh-service-url', new URL(url).origin);
     if (cloudUrl && key) { localStorage.setItem('arsh-cloud-url', new URL(cloudUrl).origin); localStorage.setItem('arsh-cloud-key', key); }
     window.location.reload();
-  }}><Button type="button" variant="ghost" size="icon" title="إغلاق" onClick={() => setOpen(false)}><X /></Button><h2>إعدادات التطبيق المحلي</h2><label>عنوان خدمة الإدارة<Input dir="ltr" type="url" value={url} onChange={e => setUrl(e.target.value)} required /></label><details><summary>تغيير خدمة البيانات</summary><label>عنوان خدمة البيانات الجديدة<Input dir="ltr" type="url" value={cloudUrl} onChange={e => setCloudUrl(e.target.value)} /></label><label>مفتاح الاتصال العام<Input dir="ltr" value={key} onChange={e => setKey(e.target.value)} autoComplete="off" /></label></details>{error && <p className="text-destructive">{error}</p>}<Button type="submit">حفظ وإعادة فتح التطبيق</Button></form></div>}<Toaster position="top-center" richColors /></QueryClientProvider>;
+  }}><Button type="button" variant="ghost" size="icon" title="إغلاق" onClick={() => setOpen(false)}><X /></Button><h2>إعدادات التطبيق المحلي</h2><AppUpdate /><label>عنوان خدمة الإدارة<Input dir="ltr" type="url" value={url} onChange={e => setUrl(e.target.value)} required /></label><details><summary>تغيير خدمة البيانات</summary><label>عنوان خدمة البيانات الجديدة<Input dir="ltr" type="url" value={cloudUrl} onChange={e => setCloudUrl(e.target.value)} /></label><label>مفتاح الاتصال العام<Input dir="ltr" value={key} onChange={e => setKey(e.target.value)} autoComplete="off" /></label></details>{error && <p className="text-destructive">{error}</p>}<Button type="submit">حفظ وإعادة فتح التطبيق</Button></form></div>}<Toaster position="top-center" richColors /></QueryClientProvider>;
 }
 const root = createRootRoute({ component: Shell });
 const inbox = createRoute({ getParentRoute: () => root, path: '/', component: () => <AdminApp /> });
@@ -33,17 +35,5 @@ const settings = createRoute({ getParentRoute: () => root, path: '/settings', co
 const router = createRouter({ routeTree: root.addChildren([inbox, requests, settings]), history: createHashHistory() });
 const container = document.getElementById('root');
 function renderLocal() { if (container) createRoot(container).render(<RouterProvider router={router} />); }
-// Live updates: when online, open the published administration so every publish reaches the installed app; fall back to the bundled copy offline.
-async function start() {
-  const live = getServiceUrl();
-  if (navigator.onLine && localStorage.getItem('arsh-local-only') !== '1' && validServiceUrl(live)) {
-    try {
-      const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 5000);
-      const res = await fetch(live + '/?v=' + Date.now(), { signal: ctrl.signal, cache: 'no-store', mode: 'no-cors' });
-      clearTimeout(t);
-      if (res.type === 'opaque' || res.ok) { window.location.replace(live + '/'); return; }
-    } catch { /* offline: use bundled copy */ }
-  }
-  renderLocal();
-}
-void start();
+// Always launch the installed local bundle; updates require an explicit request.
+renderLocal();
