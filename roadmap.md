@@ -1,5 +1,6 @@
 # Unified administration
 - [x] Replace visible administration branding with تمكين and the supplied logo; prepare local-app branding and verified update assets.
+- [x] Center the تمكين logo in the header on phone and computer widths; prepared update bundle 1.1.1792374083.
 - [x] Replace automatic website opening with an explicit local-app update button and deliver Android APK.
 - [x] Remove Google and Lovable sign-in buttons, retaining email/password access.
 - [ ] Verify downloading/applying a newer native bundle on a real Android device — requires device and publication of prepared update assets.
