@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [{
     name: 'bundle-local-brand', enforce: 'pre',
     resolveId(source) {
-      if (source === '@/assets/tamkeen_logo.png.asset.json') return '\0local-tamkeen-brand';
+      if (source === '@/assets/tamkeen_logo.png.asset.json' || source === path.resolve('src/assets/tamkeen_logo.png.asset.json')) return '\0local-tamkeen-brand';
     },
     async load(id) {
       if (id !== '\0local-tamkeen-brand') return;
