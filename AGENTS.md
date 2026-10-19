@@ -16,3 +16,5 @@
 - Grant the first administrator only through a one-use enrollment code; never allow self-assigned roles.
 - Keep native clients isolated under native/ and Electron under electron/; bundle the shared administration UI locally while delegating privileged operations to bearer-authenticated, administrator-checked HTTP handlers.
 - Share administrative operation implementations between Start server functions and the portable HTTP handler to prevent divergent authorization or reply behavior.
+- Android updates use manually requested, checksum-validated same-service ZIP bundles with Capacitor Updater; never redirect startup to the hosted UI, so installed screens remain local.
+- Prepare native update assets with the native build and package-update script before publishing UI changes; website publication alone does not regenerate installed bundles.

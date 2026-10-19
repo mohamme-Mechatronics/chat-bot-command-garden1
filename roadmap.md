@@ -1,4 +1,6 @@
 # Unified administration
+- [ ] Replace automatic website opening with an explicit local-app update button and deliver Android APK.
+- [ ] Remove Google and Lovable sign-in buttons, retaining email/password access.
 - [x] Bundle local administration screens for desktop and Android, retaining administrator authorization.
 - [x] Package source, sanitized n8n workflow, migrations and recovery instructions in an inspected ZIP.
 - [x] Verify local navigation and authenticated reads; document external-service and backup limitations.

@@ -2,9 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwind from '@tailwindcss/vite';
 import path from 'node:path';
+const version = `1.1.${Math.floor(Date.now() / 1000)}`;
 export default defineConfig({
   root: path.resolve('native/web'), envDir: path.resolve('.'), base: './',
-  plugins: [react(), tailwind()],
+  define: { __ARSH_VERSION__: JSON.stringify(version) },
+  plugins: [react(), tailwind(), { name: 'local-bundle-version', generateBundle() { this.emitFile({ type: 'asset', fileName: 'bundle-version.json', source: JSON.stringify({ version }) }); } }],
   resolve: { alias: [
     { find: '@/lib/admin.functions', replacement: path.resolve('native/web/admin-api.ts') },
     { find: '@/integrations/supabase/client', replacement: path.resolve('native/web/cloud-client.ts') },

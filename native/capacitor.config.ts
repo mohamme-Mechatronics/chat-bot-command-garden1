@@ -1,3 +1,3 @@
 import type { CapacitorConfig } from '@capacitor/cli';
-const config: CapacitorConfig = { appId: 'com.arshalhandasa.admin', appName: 'عرش الهندسة', webDir: 'dist', server: { allowNavigation: ['chat-bot-command-garden.lovable.app'] }, android: { allowMixedContent: false } };
+const config: CapacitorConfig = { appId: 'com.arshalhandasa.admin', appName: 'عرش الهندسة', webDir: 'dist', android: { allowMixedContent: false }, plugins: { CapacitorUpdater: { autoUpdate: false, statsUrl: '', channelUrl: '', updateUrl: '', appReadyTimeout: 30000, version: '1.1.0' } } };
 export default config;

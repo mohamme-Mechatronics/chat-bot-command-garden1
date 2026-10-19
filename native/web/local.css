@@ -3,3 +3,5 @@
 .portable-overlay .auth-panel { width: min(100%, 440px); }
 .portable-overlay label { display: block; margin: 16px 0; }
 .portable-overlay summary { cursor: pointer; margin-top: 16px; }
+.portable-update { margin: 16px 0; }
+.portable-update p { color: var(--muted-foreground); font-size: 14px; margin-top: 8px; }
