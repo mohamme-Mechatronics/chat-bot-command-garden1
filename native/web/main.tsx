@@ -32,4 +32,18 @@ const requests = createRoute({ getParentRoute: () => root, path: '/requests', co
 const settings = createRoute({ getParentRoute: () => root, path: '/settings', component: () => <AdminApp view="settings" /> });
 const router = createRouter({ routeTree: root.addChildren([inbox, requests, settings]), history: createHashHistory() });
 const container = document.getElementById('root');
-if (container) createRoot(container).render(<RouterProvider router={router} />);
+function renderLocal() { if (container) createRoot(container).render(<RouterProvider router={router} />); }
+// Live updates: when online, open the published administration so every publish reaches the installed app; fall back to the bundled copy offline.
+async function start() {
+  const live = getServiceUrl();
+  if (navigator.onLine && localStorage.getItem('arsh-local-only') !== '1' && validServiceUrl(live)) {
+    try {
+      const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 5000);
+      const res = await fetch(live + '/?v=' + Date.now(), { signal: ctrl.signal, cache: 'no-store', mode: 'no-cors' });
+      clearTimeout(t);
+      if (res.type === 'opaque' || res.ok) { window.location.replace(live + '/'); return; }
+    } catch { /* offline: use bundled copy */ }
+  }
+  renderLocal();
+}
+void start();
