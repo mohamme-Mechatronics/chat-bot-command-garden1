@@ -15,6 +15,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ApiPublicAdministrationRouteImport } from './routes/api/public/administration'
 import { Route as ApiPublicN8nRouteImport } from './routes/api/public/n8n'
+import { Route as ApiPublicN8nMediaRouteImport } from './routes/api/public/n8n-media'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ApiPublicN8nRoute = ApiPublicN8nRouteImport.update({
   path: '/api/public/n8n',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicN8nMediaRoute = ApiPublicN8nMediaRouteImport.update({
+  id: '/api/public/n8n-media',
+  path: '/api/public/n8n-media',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
+  '/api/public/n8n-media': typeof ApiPublicN8nMediaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
+  '/api/public/n8n-media': typeof ApiPublicN8nMediaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/api/public/administration': typeof ApiPublicAdministrationRoute
   '/api/public/n8n': typeof ApiPublicN8nRoute
+  '/api/public/n8n-media': typeof ApiPublicN8nMediaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/public/administration'
     | '/api/public/n8n'
+    | '/api/public/n8n-media'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/public/administration'
     | '/api/public/n8n'
+    | '/api/public/n8n-media'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/public/administration'
     | '/api/public/n8n'
+    | '/api/public/n8n-media'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   ApiPublicAdministrationRoute: typeof ApiPublicAdministrationRoute
   ApiPublicN8nRoute: typeof ApiPublicN8nRoute
+  ApiPublicN8nMediaRoute: typeof ApiPublicN8nMediaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicN8nRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/n8n-media': {
+      id: '/api/public/n8n-media'
+      path: '/api/public/n8n-media'
+      fullPath: '/api/public/n8n-media'
+      preLoaderRoute: typeof ApiPublicN8nMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   ApiPublicAdministrationRoute: ApiPublicAdministrationRoute,
   ApiPublicN8nRoute: ApiPublicN8nRoute,
+  ApiPublicN8nMediaRoute: ApiPublicN8nMediaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
