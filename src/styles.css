@@ -199,4 +199,4 @@ button,input,select {font:inherit;} button {cursor:pointer;} h1,h2,p {margin:0;}
 /* Transparent brand artwork sits directly on the navigation surface. */
 .brand {flex-direction:column;align-items:flex-start;gap:10px;}
 .brand-logo {display:block;width:100%;height:auto;aspect-ratio:1169 / 563;object-fit:contain;}
-@media(max-width:760px){.brand {flex-direction:row;align-items:center;gap:14px;}.brand-logo {width:134px;height:73px;flex-shrink:0;}}
+@media(max-width:760px){.brand {flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;}.brand>span {display:flex;flex-direction:column;align-items:center;}.brand-logo {width:min(210px,72%);height:auto;flex-shrink:0;}}
