@@ -4,7 +4,7 @@ import { mediaKind, validMediaPath, validReplyUrl } from './bot-contract';
 
 type Context = { supabase: SupabaseClient<Database>; userId: string };
 
-export async function performAdminOperation(context: Context, operation: 'info' | 'save-url' | 'reply', data: { url?: string; conversationId?: string; text?: string; mediaPath?: string; mediaType?: string; fileName?: string } = {}) {
+export async function performAdminOperation(context: Context, operation: 'info' | 'save-url' | 'reply', data: { url?: string | undefined; conversationId?: string | undefined; text?: string | undefined; mediaPath?: string | undefined; mediaType?: string | undefined; fileName?: string | undefined } = {}) {
   const { data: admin, error: roleError } = await context.supabase.rpc('has_role', { _user_id: context.userId, _role: 'admin' });
   if (roleError || !admin) throw new Error('لا تملك صلاحية الإدارة');
   const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
