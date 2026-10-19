@@ -38,5 +38,5 @@ export function AppUpdate() {
     } catch { setStatus('تعذر التحديث؛ النسخة الحالية محفوظة. حاول لاحقًا.'); toast.error('تعذر التحديث؛ تأكد من الإنترنت وحاول لاحقًا'); }
     finally { setBusy(false); }
   }
-  return <div className="portable-update"><Button variant="outline" disabled={busy} onClick={() => void update()}><Download size={16} />{busy ? 'جارٍ التحديث…' : 'تحديث التطبيق'}</Button>{status && <p role="status">{status}</p>}</div>;
+  return <div className="portable-update"><Button type="button" variant="outline" disabled={busy} onClick={() => void update()}><Download size={16} />{busy ? 'جارٍ التحديث…' : 'تحديث التطبيق'}</Button>{status && <p role="status">{status}</p>}</div>;
 }
